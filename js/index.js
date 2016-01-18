@@ -1,35 +1,8 @@
+//IE8,9下，兼容placeholder。在输入框上覆盖一个div用来显示提示内容。
+Util.supportPlaceholder();
+
 // 关注
 (function(){
-// IE8,9下，兼容placeholder。在输入框上覆盖一个div用来显示提示内容。
-if(document.createElement('input').placeholder===undefined){
-	var aInput = document.getElementsByTagName('input');
-	for(var i=0,len=aInput.length;i<len;i++){
-		var div = document.createElement('div');
-		div.style.cssText = "position: absolute; color: #a9a9a9; background: transparent;";
-		var style = aInput[i].currentStyle;
-		var prop = ['width', 'height', 'borderWidth', 'borderColor', 'borderStyle', 'lineHeight', 'fontSize', 'fontFamily', 'textIndent'];
-		for(var key in prop){
-			div.style[prop[key]] = style[prop[key]];
-		};
-		div.innerText = aInput[i].getAttribute('placeholder');
-		div.style.display = aInput[i].value?'none':'block';
-		aInput[i].parentNode.insertBefore(div, aInput[i]);
-		function updatePlaceholder(event){
-			var target = event.target || event.srcElement;
-			target.previousSibling.style.display = target.value?'none':'block';
-		}
-		Util.addEventListener(aInput[i], 'keyup', updatePlaceholder, false);
-		// 当输入框自动填入数据时，在IE8会触发propertychange时间，隐藏提示。
-		// 在IE9，没找到合适的方法，处理当浏览器自动填充数据时，隐藏提示。
-		Util.addEventListener(aInput[i], 'propertychange', updatePlaceholder, false);
-		// 点击输入框时，有时焦点会落在div上。因此，添加事件处理，以保证点击输入框时，焦点一定落在输入框上。
-		Util.addEventListener(div, 'click', function(event){
-			var target = event.target || event.srcElement;
-			target.nextSibling.focus();
-		}, false);	
-	}
-};
-
 var follow = $('.m-follow'),
 	followBtn = $('.follow'),
 	followerCount = $('.followerCount'),
