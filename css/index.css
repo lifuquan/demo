@@ -35,6 +35,7 @@ body{min-width: 960px;}
 .m-follow .unfollow{color: #999;}
 .m-follow .divider{width: 1px; height: 10px; margin: 4px 8px 5px 8px; background: #ccc;}
 .m-follow .unfollow:hover{text-decoration: underline; color: #21a557;}
+.m-follow .show{display: block;}
 
 .m-nav_1 li{float: left; font: 16px/32px "HiraginoSansGB";}
 .m-nav_1 .child_1{margin-right: 53px;}

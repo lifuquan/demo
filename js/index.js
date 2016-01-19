@@ -15,11 +15,10 @@ var follow = $('.m-follow'),
 
 if(cookie.followSuc==='false' || cookie.followSuc===undefined){
 	// 如果未关注，显示关注按钮和粉丝数量。
-	followBtn.style.display = 'block';
-	followerCount.style.display = 'block';
+	Util.addClass(followBtn, followerCount, 'show');
 }else if(cookie.followSuc==='true'){
 	// 如果已关注，显示”已关注/取消“。
-	followStatus.style.display = 'block';
+	Util.addClass(followStatus, 'show');
 }
 
 Util.addEventListener(followBtn,'click', function(event){
@@ -75,10 +74,9 @@ function followSuccess(){
 	mask.style.display = 'none';
 	loginForm.style.display = 'none';
 	// 隐藏关注人数和关注按钮
-	followBtn.style.display = 'none';
-	followerCount.style.display = 'none';
+	Util.removeClass(followBtn, followerCount, 'show');
 	// 显示关注状态，“已关注/取消”
-	followStatus.style.display = 'block';
+	Util.addClass(followStatus, 'show');
 	// 调用关注api,如果返回正确结果，则设置cookie值'followSuc=true'
 	Util.get('http://study.163.com/webDev/attention.htm', null, function(data){
 		if(data==='1'){
@@ -96,10 +94,9 @@ Util.addEventListener(follow,'click', function(event){
 	var className = ' ' + target.className + ' ';
 	if(className.indexOf(' unfollow ')!==-1){
 		// 显示关注按钮和关注人数
-		followBtn.style.display = 'block';
-		followerCount.style.display = 'block';
+		Util.addClass(followBtn, followerCount, 'show');
 		// 隐藏关注状态，“已关注/取消"
-		followStatus.style.display = 'none';
+		Util.removeClass(followStatus, 'show');
 		// 清除表示登陆成功的cookie值
 		document.cookie = 'loginSuc=true; Expires=' + new Date().toGMTString();
 		// 清除表示关注成功的cookie值
