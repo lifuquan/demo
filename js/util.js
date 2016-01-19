@@ -262,29 +262,41 @@ Util.supportPlaceholder = function() {
 };
 
 /**
- * [在元素节点上添加类名]
+ * [在元素节点上添加类名.可同时给多个元素节点添加类名.
+ * 作为参数的的节点元素放在前，要添加的类名放在最后。]
  * @param {[type]} ele      [元素节点]
  * @param {[String]} sClass [类名]
  */
-Util.addClass = function(ele,sClass){
-    var aClass = ele.className.split(/\s+/);
-    var p = aClass.indexOf(sClass);
-    if(p===-1){
-        aClass.push(sClass);
-        ele.className = aClass.join(' ').trim();
-    }   
+Util.addClass = function(){
+    var length = arguments.length;
+    var sClass = arguments[length-1];
+    var aEle = Array.prototype.slice.call(arguments, 0, -1);
+    for(var i=0,len=aEle.length;i<len;i++){
+        var aClass = aEle[i].className.split(/\s+/);
+        var p = aClass.indexOf(sClass);
+        if(p===-1){
+            aClass.push(sClass);
+            aEle[i].className = aClass.join(' ').trim();
+        }   
+    }
 }
 
 /**
- * [在元素节点上删除类名]
+ * [在元素节点上删除类名.可同时删除多个元素节点的类名.
+ * 作为参数的的节点元素放在前，要添加的类名放在最后。]
  * @param {[type]} ele      [元素节点]
  * @param {[String]} sClass [类名]
  */
-Util.removeClass = function(ele, sClass){
-    var aClass = ele.className.split(/\s+/);
-    var p = aClass.indexOf(sClass);
-    if(p>-1){
-        aClass.splice(p,1);
-        ele.className = aClass.join(' ').trim();
+Util.removeClass = function(){
+    var length = arguments.length;
+    var sClass = arguments[length-1];
+    var aEle = Array.prototype.slice.call(arguments, 0, -1);
+    for(var i=0,len=aEle.length;i<len;i++){
+        var aClass = aEle[i].className.split(/\s+/);
+        var p = aClass.indexOf(sClass);
+        if(p>-1){
+            aClass.splice(p,1);
+            aEle[i].className = aClass.join(' ').trim();
+        } 
     }
 }
