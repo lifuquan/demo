@@ -2,6 +2,7 @@
 Util.supportPlaceholder();
 
 // 关注
+// 测试账户：studyOnline	密码：study.163.com
 (function(){
 var follow = $('.m-follow'),
 	followBtn = $('.follow'),

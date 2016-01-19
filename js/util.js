@@ -260,3 +260,31 @@ Util.supportPlaceholder = function() {
         }
     };
 };
+
+/**
+ * [在元素节点上添加类名]
+ * @param {[type]} ele      [元素节点]
+ * @param {[String]} sClass [类名]
+ */
+Util.addClass = function(ele,sClass){
+    var aClass = ele.className.split(/\s+/);
+    var p = aClass.indexOf(sClass);
+    if(p===-1){
+        aClass.push(sClass);
+        ele.className = aClass.join(' ').trim();
+    }   
+}
+
+/**
+ * [在元素节点上删除类名]
+ * @param {[type]} ele      [元素节点]
+ * @param {[String]} sClass [类名]
+ */
+Util.removeClass = function(ele, sClass){
+    var aClass = ele.className.split(/\s+/);
+    var p = aClass.indexOf(sClass);
+    if(p>-1){
+        aClass.splice(p,1);
+        ele.className = aClass.join(' ').trim();
+    }
+}
