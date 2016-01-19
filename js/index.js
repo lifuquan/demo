@@ -24,8 +24,7 @@ if(cookie.followSuc==='false' || cookie.followSuc===undefined){
 Util.addEventListener(followBtn,'click', function(event){
 	var cookie = Util.getCookie();
 	if(cookie.loginSuc===undefined){
-		mask.style.display = 'block';
-		loginForm.style.display = 'block';
+		Util.addClass(mask, loginForm, 'show');
 	}else if(cookie.loginSuc==='true'){
 		// 如果登录cookie已经设置，不弹出登录窗口，直接处理关注逻辑。
 		followSuccess();
@@ -71,8 +70,7 @@ function loginSuccess(callback){
  */
 function followSuccess(){
 	// 隐藏遮罩和登录表单
-	mask.style.display = 'none';
-	loginForm.style.display = 'none';
+	Util.removeClass(mask, loginForm, 'show');
 	// 隐藏关注人数和关注按钮
 	Util.removeClass(followBtn, followerCount, 'show');
 	// 显示关注状态，“已关注/取消”
@@ -107,8 +105,7 @@ Util.addEventListener(follow,'click', function(event){
 // 关闭登陆表单
 Util.addEventListener(close, 'click', function(){
 	// 隐藏登陆表单和遮罩
-	mask.style.display = 'none';
-	loginForm.style.display = 'none';
+	Util.removeClass(mask, loginForm, 'show');
 }, false);
 })();
 
@@ -400,12 +397,12 @@ var closeBtn = $('#video .close'),
 Util.addEventListener(closeBtn, 'click', function(){
 	// IE8不支持video标签，此处的变量video=null.
 	if(video) video.pause();
-	mask.style.display = 'none';
+	Util.removeClass(mask, 'show');
 	videoContainer.style.display = 'none';
 	videoPlay.style.display = 'block';
 }, false);
 Util.addEventListener(videoPoster, 'click', function(){
-	mask.style.display = 'block';
+	Util.addClass(mask, 'show');
 	videoContainer.style.display = 'block';
 	videoPlay.style.display = 'none';
 }, false);

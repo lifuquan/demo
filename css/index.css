@@ -162,7 +162,9 @@ body{min-width: 960px;}
 
 /* 登录表单和遮罩 */
 #mask{display: none; position: fixed; top: 0; left: 0; z-index: 999; width: 100%; height: 100%; opacity: 0.8; filter: alpha(opacity=80); background: black;}
+#mask.show{display: block;}
 #loginForm{display: none; position: fixed; top: 50%; left: 50%; z-index: 1000; width: 387px; height: 288px; margin-left: -193px; margin-top: -144px; border: 1px solid #ddd; background: #fff;}
+#loginForm.show{display: block;}
 #loginForm fieldset{padding-left: 40px; border: none;}
 #loginForm legend{padding-top: 30px; padding-bottom: 19px; font: bold 18px/18px "microsoft yahei"; color: #444;}
 #loginForm input{width: 293px; height: 43px; margin-bottom: 15px; border: 1px solid #dfdfdf; font: 16px/43px "microsoft yahei"; text-indent: 10px; background: #fafafa;}
