@@ -107,7 +107,8 @@ body{min-width: 960px;}
 .details .description{clear: both; padding: 17px 21px 18px; font: 14px/24px "microsoft yahei"; background: #f8f8f8;}
 	/* 用CSS实现课程卡片hover效果，即时弹出浮窗，会干扰选择排在中间的课程。 */
 /*#courses li>img:hover~.details, #courses .details:hover{display: block;}*/
-#courses .details:hover{display: block;}
+#courses .details:hover, #courses .details.hover{display: block;}
+
 
 /* 分页器 */
 .m-page{float: right; padding: 10px 0 120px;}
@@ -129,6 +130,7 @@ body{min-width: 960px;}
 .intro .video_poster{position: relative; width: 180px; height: 110px; margin-left: 22px;}
 .intro img{width: 180px; height: 110px;}
 .intro .pause{position: absolute; top: 50%; left: 50%; width: 46px; height: 46px; margin-left: -23px; margin-top: -23px; background: url(../image/sprite.png) no-repeat -200px 0;}
+.intro .pause.playing{display: none;}
 
 /* 最热排行 */
 .hot{width: 223px; height: 778px; box-shadow: 0 1px 1px #d4d3d3; background: #fff;}
@@ -173,6 +175,7 @@ body{min-width: 960px;}
 
 /* 视频浮窗 */
 #video{display: none; position: fixed; top: 50%; left: 50%; z-index: 1000; width: 950px; height: 650px; margin-left: -475px; margin-top: -325px; background: #fff;}
+#video.playing{display: block;}
 #video h2{padding: 29px 0 22px 30px; font: 18px/18px "microsoft yahei";}
 #video video{padding: 0 30px 40px 31px;}
 #video .close{position: absolute; top: 13px; right: 12px; width: 10px; height: 10px; background: url(../image/sprite.png) -200px -50px;}

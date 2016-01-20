@@ -372,7 +372,7 @@ Util.addEventListener(container, 'mouseover', function(event){
 		target.doesHover = true;
 		setTimeout(function(){
 			if(target.doesHover){
-				target.parentNode.querySelector('.details').style.display = 'block';
+				Util.addClass(target.parentNode.querySelector('.details'), 'hover');
 			}
 		}, HOVER_DURATION);
 	}
@@ -381,30 +381,30 @@ Util.addEventListener(container, 'mouseout', function(event){
 	var target = event.target || event.srcElement;
 	if(target.tagName==='IMG' && target.parentNode.tagName==='LI'){
 		target.doesHover = false;
-		target.parentNode.querySelector('.details').style.display = '';
+		Util.removeClass(target.parentNode.querySelector('.details'), 'hover');
 	}
 }, false);
 })();
 
 // 视频
 (function(){
-var closeBtn = $('#video .close'),
-	mask = $('#mask'),
+var mask = $('#mask'),
 	videoContainer = $('#video'),
 	video = $('#video video'),
-	videoPoster = $('.video_poster'),
+	// videoPlay是视屏图片上的开始按钮
 	videoPlay = $('.pause');
-Util.addEventListener(closeBtn, 'click', function(){
+Util.addEventListener($('#video .close'), 'click', function(){
 	// IE8不支持video标签，此处的变量video=null.
 	if(video) video.pause();
+
 	Util.removeClass(mask, 'show');
-	videoContainer.style.display = 'none';
-	videoPlay.style.display = 'block';
+	// 在播放窗口videoContainer和播放按钮去除类名playing,用于隐藏播放窗口和现实播放图标
+	Util.removeClass(videoContainer, videoPlay, 'playing');
 }, false);
-Util.addEventListener(videoPoster, 'click', function(){
+Util.addEventListener($('.video_poster'), 'click', function(){
 	Util.addClass(mask, 'show');
-	videoContainer.style.display = 'block';
-	videoPlay.style.display = 'none';
+	// 在播放窗口videoContainer和播放按钮添加类名playing,用于显示播放窗口和隐藏播放图标
+	Util.addClass(videoContainer, videoPlay, 'playing');
 }, false);
 })();
 
