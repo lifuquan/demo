@@ -24,7 +24,8 @@ var app = app || {};
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
-			'blur .edit': 'close'
+			'blur .edit': 'close',
+			'blur .deadline-edit': 'close',
 		},
 
 		// The TodoView listens for changes to its model, re-rendering. Since
@@ -85,13 +86,14 @@ var app = app || {};
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function () {
 			this.$el.addClass('editing');
-			this.$input.focus();
+			// this.$input.focus();
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
-		close: function () {
+		close: function (event) {
 			var value = this.$input.val();
 			var trimmedValue = value.trim();
+			var deadline = $('.deadline').val();
 
 			// We don't want to handle blur events from an item that is no
 			// longer being edited. Relying on the CSS class here has the
@@ -99,6 +101,14 @@ var app = app || {};
 			// JavaScript logic.
 			if (!this.$el.hasClass('editing')) {
 				return;
+			}
+
+			if($(event.relatedTarget).hasClass('edit') || $(event.relatedTarget).hasClass('deadline')){
+				return;
+			}
+			
+			if(deadline){
+				this.model.save({ deadline: new Date(deadline).getTime() });
 			}
 
 			if (trimmedValue) {

@@ -266,13 +266,32 @@ label[for='toggle-all'] {
 	position: relative;
 }
 
-#todo-list li label {
+#todo-list li label.task {
 	white-space: pre;
 	word-break: break-word;
 	padding: 15px 60px 15px 15px;
 	margin-left: 45px;
 	display: block;
 	line-height: 1.2;
+	font-size: 24px;
+	-webkit-transition: color 0.4s;
+	transition: color 0.4s;
+}
+
+#todo-list li .deadline-edit {
+	display: none;
+}
+#todo-list li.editing .deadline-edit {
+	display: block;
+}
+
+#todo-list li label {
+	padding-left: 15px;
+	margin-left: 45px;
+	display: block;
+	line-height: 1.2;
+	font-size: 16px;
+	color: gray;
 	-webkit-transition: color 0.4s;
 	transition: color 0.4s;
 }

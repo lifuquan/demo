@@ -27,6 +27,6 @@ var app = app || {};
 			this.save({
 				priority: !this.get('priority')
 			});
-		}
+		},
 	});
 })();

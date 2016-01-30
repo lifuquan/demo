@@ -99,7 +99,9 @@ var app = app || {};
 			return {
 				title: this.$input.val().trim(),
 				order: app.todos.nextOrder(),
-				completed: false
+				completed: false,
+				createTime: Date.now(),
+				deadline: Date.now()+1000*60*60*24,
 			};
 		},
 
