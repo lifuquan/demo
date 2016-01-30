@@ -20,7 +20,7 @@ var app = app || {};
 			'click .toggle': 'toggleCompleted',
 			'dblclick label': 'edit',
 			'click .edit-btn': 'edit',
-			'click .priority-btn': 'togglePriority',
+			'click .priority-btn': 'changePriority',
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
@@ -51,21 +51,21 @@ var app = app || {};
 				return;
 			}
 
+			this.$el.attr('class', '');
+
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass('completed', this.model.get('completed'));
-			this.$el.toggleClass('priority', this.model.get('priority'));
-			// if(this.model.get('completed')){
-			// 	var $label = this.$el.find('label');
-			// 	var labelTxt = $label.text();
-			// 	$label.text(labelTxt+'--done');
-			// }
+
+			var priority = this.model.get('priority');
+			this.$el.addClass('priority-'+priority);
+		
 			this.toggleVisible();
 			this.$input = this.$('.edit');
 			return this;
 		},
 
-		togglePriority: function () {
-			this.model.togglePriority();
+		changePriority: function () {
+			this.model.changePriority();
 		},
 
 		toggleVisible: function () {
@@ -73,6 +73,10 @@ var app = app || {};
 		},
 
 		isHidden: function () {
+			if(app.TodoFilter.indexOf('priority')>-1){
+				var priority = app.TodoFilter.slice(-1);
+				return this.model.get('priority')!=priority;
+			}
 			return this.model.get('completed') ?
 				app.TodoFilter === 'active' :
 				app.TodoFilter === 'completed';
@@ -86,7 +90,7 @@ var app = app || {};
 		// Switch this view into `"editing"` mode, displaying the input field.
 		edit: function () {
 			this.$el.addClass('editing');
-			// this.$input.focus();
+			this.$input.focus();
 		},
 
 		// Close the `"editing"` mode, saving changes to the todo.
