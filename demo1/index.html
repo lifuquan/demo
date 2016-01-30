@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>微专业WEB前端开发作业</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./css/index.css">
+	<!-- 控制顶部通知条的状态：显示或隐藏。在渲染顶部通知条之前，JS脚本会根据cookie值修改此处的display值。 -->
+	<style>
+	.msg {display: none;}
+	@media screen and (max-width: 1205px){
+		.f-hc{width: 960px;}
+		.g-bd_2 .left{width: 713px;}
+		.m-nav_2{margin-left: -75px;}
+		.m-nav_2 li{padding-right: 0;}
+		.g-ft_1{padding-left: 0;}
+	}
+	</style>
+</head>
+<body>
+	<!-- 在IE8下，兼容响应式设计。 -->
+	<!--[if lt IE 9]>
+	<style>
+	.f-hc{width: 960px;}
+	.g-bd_2 .left{width: 713px;}
+	.m-nav_2{margin-left: -75px;}
+	.m-nav_2 li{padding-right: 0;}
+	.g-ft_1{padding-left: 0;}
+	</style>
+	<script>
+	(function(){
+	function updateWindow(){
+		if(document.body.clientWidth>1205){
+			document.styleSheets[2].disabled = true;
+		}else{
+			document.styleSheets[2].disabled = false;
+		}
+	}
+	updateWindow();
+	window.onresize = updateWindow;
+	})();
+	</script>
+	<![endif]-->
+
+	<!-- 顶部通知条的控制逻辑 -->
+	<script>
+	(function(){
+		var style = document.styleSheets[1].cssRules ? document.styleSheets[1].cssRules[0].style: document.styleSheets[1].rules[0].style;
+		if(document.cookie.indexOf('hideMsg=true')===-1){
+			style.display = 'block';
+		}
+
+		function deleteMsg(event){
+			event = event || window.event;
+			var target = event.target || event.srcElement;
+			if(target.className.indexOf('delete_msg')!==-1){
+				document.cookie = 'hideMsg=true';
+				style.display = 'none';
+				// 关闭顶部通知条后，移除事件处理函数。
+				document.body.onclick = null;
+			}
+			
+		}
+		// 此时，顶部通知条还没渲染，使用事件委托把点击事件注册在document.body上。
+		document.body.onclick = deleteMsg;
+	})();
+	</script>
+	<div class="g-hd">
+		<!-- .f-hc: 水平居中horizontal center -->
+		<div class="g-hd_1 msg">
+			<div class="f-hc">
+				<div class="content f-fl">网易云课堂微专业，帮助你掌握专业技能，令你求职或加薪多一份独特优势！</div>
+				<a href="">立即查看></a>
+				<div class="delete_msg f-fr">不再提醒</div>
+			</div>
+		</div>
+		<div class="g-hd_2 f-hc f-cb">
+			<div class="m-logo f-fl">
+				<div class="edu"></div>
+				<div class="divider"></div>
+				<div class="font">网易教育产品部</div>
+			</div>
+			<div class="m-follow f-fl">
+				<button class="follow f-fl">关注</button>
+				<div class="followerCount">粉丝 45</div>
+				<div class="follow_status">
+					<div class="followed">已关注</div>
+					<div class="divider"></div>
+					<div class="unfollow">取消</div>
+				</div>
+			</div>
+			<ul class="m-nav_1 f-fr">
+				<li class="child_1"><a href="http://open.163.com/" target="_blank">网易公开课</a></li>
+				<li class="child_2"><a href="http://study.163.com/" target="_blank">云课堂</a></li>
+				<li class="child_3"><a href="http://www.icourse163.org/" target="_blank">中国大学MOOC</a></li>
+				<li class="search"><a href=""></a></li>
+			</ul>
+		</div>
+		<div class="g-hd_3 m-banner">
+			<ul>
+				<li class="crt"><a href="http://open.163.com/" target="_blank"><img src="./image/banner1.jpg" alt="banner1"></a></li>
+				<li><a href="http://study.163.com/" target="_blank"><img src="./image/banner2.jpg" alt="banner2"></a></li>
+				<li><a href="http://www.icourse163.org/" target="_blank"><img src="./image/banner3.jpg" alt="banner3"></a></li>
+			</ul>
+			<div class="pointer"><span class='crt'></span><span></span><span></span></div>
+		</div>
+		<div class="g-hd_4 f-hc">
+			<ul class="m-nav_2 f-cb">
+				<li>
+					<div class="icon icon_1"></div>
+					<div class="content">
+						<h2>网易公开课</h2>
+						<p>推出国内外名校公开课，涉及广泛的学科，名校老师认真讲解深度剖析，网易视频公开课频道搭建起强有力的网络视频教学平台。</p>
+						<p><a href="http://open.163.com/">了解更多</a></p>
+					</div>
+				</li>
+				<li>
+					<div class="icon icon_2"></div>
+					<div class="content">
+						<h2>云课堂</h2>
+						<p>网易旗下大型在线学习平台，该平台面向学习者提供海量免费、优质课程,创新的个性化学习体验，自由开放的交流互动环境。  </p>
+						<p><a href="http://study.163.com/">了解更多</a></p>
+					</div>
+				</li>
+				<li>
+					<div class="icon icon_3"></div>
+					<div class="content">
+						<h2>中国大学MOOC</h2>
+						<p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人,都可以在这里学习中国最好的大学课程，学完还能获得认证证书。</p>
+						<p><a href="http://www.icourse163.org/">了解更多</a></p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="g-bd">
+		<div class="g-bd_1">
+			<div class="container">
+				<ul class="m-slider f-cb">
+					<li><img src="./image/slider1.jpg" alt="slider1"></li>
+					<li><img src="./image/slider2.jpg" alt="slider2"></li>
+					<li><img src="./image/slider3.jpg" alt="slider3"></li>
+					<li><img src="./image/slider4.jpg" alt="slider4"></li>
+					<li><img src="./image/slider5.jpg" alt="slider5"></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="g-bd_2 f-hc f-cb">
+			<div class="left f-fl">
+				<div class="category">
+					<div class="product crt">产品设计</div>
+					<div class="language">编程语言</div>
+				</div>
+				<script type="text/template" id="course_template">
+				<ul id="courses" class="f-cb">
+					{list courses as course}
+						<li class="course">
+							<img src="${course.middlePhotoUrl}" alt="${course.name}">
+							<h2>${course.name}</h2>
+							<div class="audio">音频帮</div>
+							<div class="count f-fl">${course.learnerCount}</div>
+							<div class="price">${course.price|formatCurrency}</div>
+							<div class="details">
+								<img src="${course.middlePhotoUrl}" alt="${course.name}">
+								<div class="right f-fr">
+									<h2>${course.name}</h2>
+									<div class="count">${course.learnerCount}人在学</div>
+									<div class="provider">发布者：${course.provider}</div>
+									<div class="category">分类：${course.categoryName}</div>
+								</div>
+								<div class="description">${course.description}</div>
+							</div>
+						</li>
+					{/list}
+				</ul>
+				</script>
+				<ul class="m-page f-cb">
+				</ul>
+				<script type="text/template" id="page_template">
+					<li class="prev"></li>
+					<li>${1}</li>
+					<li>${2}</li>
+					<li>${3}</li>
+					<li>${4}</li>
+					<li>${5}</li>
+					<li>${6}</li>
+					<li>${7}</li>
+					<li>${8}</li>
+					<li class="next"></li>
+				</script>
+
+			</div>
+			<div class="right f-fr">
+				<div class="intro">
+					<h2>机构介绍</h2>
+					<p class="tips">观看下面的视频来了解吧：</p>
+					<div class="video_poster">
+						<img src="./image/video_poster.jpg" alt="video poster">
+						<div class="pause"></div>
+					</div>
+				</div>
+				<div class="hot">
+					<h2>最热排行</h2>
+					<div class="container">
+						<script type="text/template" id="hot_template">
+						<ul id="hot" class="f-cb">
+							{list courses as course}
+								<li class="course">
+									<img src="${course.smallPhotoUrl}" alt="${course.name}" class="f-fl">
+									<div class="image_right f-fl">
+										<h3>${course.name}</h3>
+										<div class="count">${course.learnerCount}</div>
+									</div>
+								</li>
+							{/list}
+						</ul>
+					</script>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="g-ft">
+		<div class="container f-hc f-cb">
+			<div class="f-fl g-ft_1">
+				<div class="f-fl m-logo">
+					<div class="edu"></div>
+					<div class="divider"></div>
+					<div class="font">网易教育产品部</div>
+				</div>
+				<p>©2014 icourse163.org 浙ICP备08114786号-1</p>
+				<p>icourses.cn 京ICP备12020869号-2 京公网安备110102000459-2</p>
+
+			</div>
+			<div class="f-fl g-ft_2">
+				<h3>友情链接： </h3>
+				<ul>
+					<li><a href="http://open.163.com/">网易公开课</a></li>
+					<li><a href="http://study.163.com/">网易云课堂</a></li>
+					<li><a href="http://www.icourse163.org/">中国大学MOOC</a></li>
+				</ul>
+			</div>
+			<div class="f-fl g-ft_3">
+				<h3>我们:</h3>
+				<ul>
+					<li><a href="">关于</a></li>
+					<li><a href="">联系</a></li>
+					<li><a class="follow" href="">关注</a></li>
+				</ul>
+			</div>
+			<div class="f-fl g-ft_4">
+				<h3>更多：</h3>
+				<ul>
+					<li><a href="">常见问题</a></li>
+					<li><a href="">意见反馈</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+
+	
+	<div id="mask"></div>
+	<!-- 登录表单 -->
+	<form id="loginForm" action="">
+		<fieldset>
+			<legend>登录网易云课堂</legend>
+			<div>
+				<input id="username" name="username" type="text" class="u-txt" placeholder="账号">
+			</div>
+			<div>
+				<input id="password" type="password" name="password" class="u-txt" placeholder="密码">
+			</div>
+		</fieldset>
+		<!-- 如登陆按钮放在fieldset里，在IE8下不会触发点击事件。 -->
+		<div><button id="login">登　录</button></div>
+		<div class="close"></div>
+	</form>
+
+	<div id="video">
+		<h2>请观看以下视屏</h2>
+		<video controls width="889" height="538" poster="./image/video_poster_2.jpg">
+	    	<source src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" type="video/mp4">
+    		Your browser does not support the video tag.
+  		</video>
+		<div class="close"></div>
+	</div>
+
+	<script src="./js/md5.min.js"></script>
+	<script src="./js/util.js"></script>
+	<script src="./js/index.js"></script>
+</body>
+</html>
