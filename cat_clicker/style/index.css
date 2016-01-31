@@ -1,0 +1,5 @@
+.cat_list{display:inline-block;position:relative;}
+.cat_list li{float:left;margin-left:-1px;border-radius:0;list-style: none;padding: 5px 20px; border: 1px solid #dedede; background: #f8f8f8;}
+.cat_list li:hover, .cat_list li.selected{background: #e7e7e7;}
+.cat_list li:first-child{margin-left:0;border-radius:5px 0 0 5px;}
+.cat_list li:nth-last-of-type(1){border-radius:0 5px 5px 0;}

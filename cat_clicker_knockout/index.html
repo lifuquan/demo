@@ -4,22 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Cat Clicker - knockout</title>
+    <link rel="stylesheet" href="./style/index.css"></link>
 </head>
 
 <body>
-	<ul data-bind="foreach: cats">
-		<li data-bind="text: name, click: $parent.switchCat"></li>
+	<ul  class="cat_list" data-bind="foreach: cats">
+		<li data-bind="text: name, click: $parent.switchCat, css: { selected: $parent.currentCat() == $data }"></li>
 	</ul>
 <div data-bind="with: currentCat">
 	<h2 data-bind="text: name"></h2>
 	<h3 data-bind="text: title"></h3>
-	<div data-bind="text: clickCount"></div>
+	<div data-bind="text: 'Cat\'s Click:\t' + clickCount()"></div>
 	<!-- $parent: call frome ViewModel context -->
 	<img src="" data-bind="attr: {src: imgSrc}, click: $parent.incrementCounter">
-	<h3>Nick Names</h3>
-	<ul data-bind="foreach: nicknames;">
-		<li data-bind="text: $data"></li>
-	</ul>
 </div>
     <script type="text/javascript" src="lib/knockout-3.4.0.debug.js"></script>
     <script>
@@ -29,7 +26,6 @@
     		clickCount: 0,
     		imgSrc: 'img/cat1.jpg',
     		imgAttribution: '...',
-    		nicknames: ['Cutie', 'Betic', 'Jim', 'XO', 'Peter']
 
     	},
     	{
@@ -37,7 +33,6 @@
     		clickCount: 0,
     		imgSrc: 'img/cat2.jpg',
     		imgAttribution: '...',
-    		nicknames: ['Cutie', 'Betic', 'Jim', 'XO', 'Peter']
 
     	},
     	{
@@ -45,7 +40,6 @@
     		clickCount: 0,
     		imgSrc: 'img/cat3.jpg',
     		imgAttribution: '...',
-    		nicknames: ['Cutie', 'Betic', 'Jim', 'XO', 'Peter']
 
     	},
     	{
@@ -53,8 +47,6 @@
     		clickCount: 0,
     		imgSrc: 'img/cat4.jpg',
     		imgAttribution: '...',
-    		nicknames: ['Cutie', 'Betic', 'Jim', 'XO', 'Peter']
-
     	}
     ];
     function Cat(data){
@@ -62,17 +54,16 @@
     	this.clickCount = ko.observable(data.clickCount);
     	this.imgSrc = ko.observable(data.imgSrc);
     	this.imgAttribution = ko.observable(data.imgAttribution);
-    	this.nicknames = ko.observableArray(data.nicknames);
     	this.title = ko.computed(function(){
     		var title = '';
     		var clicks = this.clickCount();
-    		if(clicks<10){
+    		if(clicks<5){
     			title = 'Newborn';
-    		}else if(clicks<20){
+    		}else if(clicks<10){
     			title = 'Infant';
-    		}else if(clicks<30){
+    		}else if(clicks<15){
     			title = 'Child';
-    		}else if(clicks<40){
+    		}else if(clicks<20){
     			title = 'Adult';
     		}else{
     			title = 'Ninja';

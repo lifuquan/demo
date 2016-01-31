@@ -28,7 +28,13 @@ $(function(){
 			$('.cat_list').html('');
 			var cats = octopus.getAllCats();
 			cats.forEach(function(cat){
-				$('<li>'+cat.name+'</li>').appendTo('.cat_list')
+				var str = '';
+				if(cat===octopus.getCurrentCat()){
+					str = '<li class="selected">';
+				}else{
+					str = '<li>';
+				}
+				$(str+cat.name+'</li>').appendTo('.cat_list')
 					.click((function(copyCat){
 						return function(){
 						octopus.selectCat(copyCat);
@@ -47,15 +53,30 @@ $(function(){
 		},
 		render: function(){
 			var cat = model.curCat;
+			var title = '';
+    		var clicks = cat.clickCount;
+    		if(clicks<5){
+    			title = 'Newborn';
+    		}else if(clicks<10){
+    			title = 'Infant';
+    		}else if(clicks<15){
+    			title = 'Child';
+    		}else if(clicks<20){
+    			title = 'Adult';
+    		}else{
+    			title = 'Ninja';
+    		}
+
 			$('.cat h2').text(cat.name); 
+			$('.cat h3').text(title); 
 			$('.cat img').attr('src', cat.imgUrl);
-			$('.cat .click_count').text(cat.clickCount);
+			$('.cat .click_count').text('Cat\'s Click:\t'+cat.clickCount);
 		}
 	};
-	var adminView = {
+	var viewAdmin = {
 		init: function(){
 			$('.admin').click(function(){
-				adminView.render();
+				viewAdmin.render();
 			});
 			$('.save').click(function(event){
 				octopus.updateCat($('#name').val(), $('#imgUrl').val(), $('#click').val());
@@ -88,11 +109,12 @@ $(function(){
 			model.curCat = model.cats[0];
 			viewList.init();
 			viewDetail.init();
-			adminView.init();
+			viewAdmin.init();
 		},
 		selectCat: function(cat){
 			model.curCat = cat;
 			viewDetail.render();
+			viewList.render();
 		},
 		click: function(){
 			model.click();
