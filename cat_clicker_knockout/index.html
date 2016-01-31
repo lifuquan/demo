@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cat Clicker - knockout</title>
+</head>
+
+<body>
+	<ul data-bind="foreach: cats">
+		<li data-bind="text: name, click: $parent.switchCat"></li>
+	</ul>
+<div data-bind="with: currentCat">
+	<h2 data-bind="text: name"></h2>
+	<h3 data-bind="text: title"></h3>
+	<div data-bind="text: clickCount"></div>
+	<!-- $parent: call frome ViewModel context -->
+	<img src="" data-bind="attr: {src: imgSrc}, click: $parent.incrementCounter">
+	<h3>Nick Names</h3>
+	<ul data-bind="foreach: nicknames;">
+		<li data-bind="text: $data"></li>
+	</ul>
+</div>
+    <script type="text/javascript" src="lib/knockout-3.4.0.debug.js"></script>
+    <script>
+    var catData = [
+    	{
+    		name: 'Tabby',
+    		clickCount: 0,
+    		imgSrc: 'img/cat1.jpg',
+    		imgAttribution: '...',
+    		nicknames: ['Cutie', 'Betic', 'Jim', 'XO', 'Peter']
+
+    	},
+    	{
+    		name: 'Marie',
+    		clickCount: 0,
+    		imgSrc: 'img/cat2.jpg',
+    		imgAttribution: '...',
+    		nicknames: ['Cutie', 'Betic', 'Jim', 'XO', 'Peter']
+
+    	},
+    	{
+    		name: 'Curie',
+    		clickCount: 0,
+    		imgSrc: 'img/cat3.jpg',
+    		imgAttribution: '...',
+    		nicknames: ['Cutie', 'Betic', 'Jim', 'XO', 'Peter']
+
+    	},
+    	{
+    		name: 'Shabby',
+    		clickCount: 0,
+    		imgSrc: 'img/cat4.jpg',
+    		imgAttribution: '...',
+    		nicknames: ['Cutie', 'Betic', 'Jim', 'XO', 'Peter']
+
+    	}
+    ];
+    function Cat(data){
+    	this.name = ko.observable(data.name);
+    	this.clickCount = ko.observable(data.clickCount);
+    	this.imgSrc = ko.observable(data.imgSrc);
+    	this.imgAttribution = ko.observable(data.imgAttribution);
+    	this.nicknames = ko.observableArray(data.nicknames);
+    	this.title = ko.computed(function(){
+    		var title = '';
+    		var clicks = this.clickCount();
+    		if(clicks<10){
+    			title = 'Newborn';
+    		}else if(clicks<20){
+    			title = 'Infant';
+    		}else if(clicks<30){
+    			title = 'Child';
+    		}else if(clicks<40){
+    			title = 'Adult';
+    		}else{
+    			title = 'Ninja';
+    		}
+    		return title;
+    	}, this);
+    }
+
+    function ViewModel(){
+    	var self = this;
+    	this.cats = ko.observableArray([]);
+    	catData.forEach(function(data){
+    		self.cats.push(new Cat(data));
+    	});
+
+    	this.currentCat = ko.observable(this.cats()[0]);
+    	this.incrementCounter = function(){
+    		//console.log(this);   currentCat
+    		//'this' is bind to the currentcat due to the 'with' binding in html
+    		//self.currentCat().clickCount(self.currentCat().clickCount()+1);
+    		this.clickCount(this.clickCount()+1);
+    	};
+    	this.switchCat = function(){
+    		// called inside the "foreach: cats", so the context('this') is set to the cat.
+    		self.currentCat(this);
+    		//console.log(arguments);		// [Cat, MouseEvent]
+    	}
+    }
+    ko.applyBindings(new ViewModel());
+
+    </script>
+</body>
+
+</html>
